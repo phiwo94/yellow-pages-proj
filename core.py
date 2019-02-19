@@ -3,30 +3,37 @@ from bs4 import BeautifulSoup
 from time import time
 
 
-class Anwohner:
-    def __init__(self, name, strasse, plz, ort, telefon):
+class People:
+
+    """
+    class for personal data
+    """
+
+    def __init__(self, name, street, zip_code, town, phone):
         self.name = str(name)
-        self.strasse = str(strasse)
-        self.plz = str(plz)
-        self.ort = str(ort)
-        self.telefon = str(telefon)
+        self.street = str(street)
+        self.zip_code = str(zip_code)
+        self.town = str(town)
+        self.phone = str(phone)
 
     def print_all(self):
-        return str(self.name) + ";" + str(self.strasse) + ";" + str(self.plz) + ";" + str(self.ort) + ";" + str(self.telefon)
+
+        """
+        function to concatenate into csv
+        :return semicolon separated string:
+        """
+
+        return str(self.name) + ";" + str(self.street) + ";" + str(self.zip_code) + ";" + str(self.town) + ";" + str(self.phone)
 
 
 def get_soup(url: str):
+
+    """
+    :param url:
+    :return parsed bs4 elements:
+    """
+
     return BeautifulSoup(requests.get(url).text, features="html.parser")
-
-
-def list_join(arr, sep=" "):
-    result = ""
-    for i in range(len(arr)):
-        if i < len(arr)-1:
-            result = result + arr[i] + sep
-        else:
-            result = result + arr[i] + "\n"
-    return result
 
 
 def main():
