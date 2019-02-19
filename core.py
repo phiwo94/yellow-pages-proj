@@ -29,14 +29,14 @@ def list_join(arr, sep=" "):
     return result
 
 
-if __name__ == "__main__":
+def main():
     website = "https://telefonbuch-suche.com"
     sub_site = "/a"
-    soup = get_soup(website + sub_site)
-    yellow_pages = list()
     not_in_list = ["telefonbuch", "home", "impressum", "anmelden", "eintragen", "agb", "kontakt", "deutschland"]
-    cities, streets, names = 0, 0, 0
+    cities, streets = 0, 0
     t_cities = time()
+    yellow_pages = list()
+    soup = get_soup(website + sub_site)
     for ort in soup.find_all("a"):
         t_streets = time()
         if ort.get("href")[:2] == "/a" and ort.text.lower().replace(" ", "") not in not_in_list:
@@ -50,7 +50,11 @@ if __name__ == "__main__":
                             pees = list()
                             for temp_elem in temp_soup.find_all("p"):
                                 pees.append(temp_elem.contents)
-                            yellow_pages.append(Anwohner(str(pees[2][0]).strip(), str(pees[2][2]).strip(), str(pees[2][4]).strip().split(" ")[0], str(pees[2][4]).strip().split(" ")[1], str(pees[3][0]).strip()))
+                            yellow_pages.append(Anwohner(str(pees[2][0]).strip(),
+                                                         str(pees[2][2]).strip(),
+                                                         str(pees[2][4]).strip().split(" ")[0],
+                                                         str(pees[2][4]).strip().split(" ")[1],
+                                                         str(pees[3][0]).strip()))
                 streets += 1
                 print("    " + str(streets) + " Streets (" + str(len(yellow_pages)) + " people) in: " + str((time()-t_streets)))
             with open("cities" + ort.text + ".csv", "w") as file:
@@ -59,4 +63,8 @@ if __name__ == "__main__":
                     file.write(elem.print_all() + "\n")
             yellow_pages = list()
             cities += 1
-            print(str(cities) + " in: " + str((time()-time())/60))
+            print(str(cities) + " in: " + str((time()-t_cities)/60))
+
+
+if __name__ == "__main__":
+    main()

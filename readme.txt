@@ -19,4 +19,5 @@ ToDo´s
 - [X] get basic scraping of names
 - [X] create readme.txt
 - [ ] Error-handling (raspberry ran into first error after ~60.000 names)
-- [ ] improve performance
+- [ ] improve performance (use multiple cores)
+- [ ] write result into a db instead "city_name".csv files
