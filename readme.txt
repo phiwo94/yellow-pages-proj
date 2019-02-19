@@ -12,7 +12,7 @@ Dependencies
 
 Goal
 ----
-Goal is to scrape all names completely with address and phone number.
+Goal is to scrape all names completely with address and phone number (estimate = 60.000.000 names).
 
 ToDo´s
 ------
