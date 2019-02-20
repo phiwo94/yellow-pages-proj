@@ -1,7 +1,7 @@
 Yellow Pages Germany
 ====================
 
-This is a web-scraping project that tries to get phone numbers from `Telefonbuch-Suche.com <https://telefonbuch-suche.com/>`__.
+This is a web-scraping project that tries to get phone numbers from https://telefonbuch-suche.com/ .
 This is a just for fun project, to help me get better at web-scraping.
 
 Dependencies
@@ -20,9 +20,10 @@ ToDo´s
 - [X] get basic scraping of names
 - [X] create readme.txt
 - [ ] Error-handling (raspberry ran into first error after ~60.000 names)
-- [ ] improve performance (use multiple cores)
+- [ ] improve performance (use multi-threading)
 - [X] write result into a db instead "city_name".csv files
 - [ ] make code more object-oriented
+- [ ] implement stop-resume functionality
 
 Change-Log
 ----------
