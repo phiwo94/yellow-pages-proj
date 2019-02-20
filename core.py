@@ -1,29 +1,27 @@
 import requests
+import sqlite3 as sql
 from bs4 import BeautifulSoup
 from time import time
 
 
-class People:
+class Database:
 
-    """
-    class for personal data
-    """
+    def __init__(self, db_name: str):
+        self.db = sql.connect(str(db_name))
+        self.cursor = self.db.cursor()
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS yellowpages 
+                               (personname text, streetname text, zipcode text, town text, phonenumber text)""")
 
-    def __init__(self, name, street, zip_code, town, phone):
-        self.name = str(name)
-        self.street = str(street)
-        self.zip_code = str(zip_code)
-        self.town = str(town)
-        self.phone = str(phone)
+    def insert(self, data: tuple):
+        if len(data) == 5:
+            self.cursor.execute("""
+                INSERT INTO yellowpages VALUES(?, ?, ?, ?, ?)
+            """, data)
 
-    def print_all(self):
-
-        """
-        function to concatenate into csv
-        :return semicolon separated string:
-        """
-
-        return str(self.name) + ";" + str(self.street) + ";" + str(self.zip_code) + ";" + str(self.town) + ";" + str(self.phone)
+    def shut_down(self):
+        self.cursor.close()
+        self.db.commit()
+        self.db.close()
 
 
 def get_soup(url: str):
@@ -42,7 +40,7 @@ def main():
     not_in_list = ["telefonbuch", "home", "impressum", "anmelden", "eintragen", "agb", "kontakt", "deutschland"]
     cities, streets = 0, 0
     t_cities = time()
-    yellow_pages = list()
+    db = Database("cities/cities.db")
     soup = get_soup(website + sub_site)
     for ort in soup.find_all("a"):
         t_streets = time()
@@ -57,21 +55,27 @@ def main():
                             pees = list()
                             for temp_elem in temp_soup.find_all("p"):
                                 pees.append(temp_elem.contents)
-                            yellow_pages.append(Anwohner(str(pees[2][0]).strip(),
-                                                         str(pees[2][2]).strip(),
-                                                         str(pees[2][4]).strip().split(" ")[0],
-                                                         str(pees[2][4]).strip().split(" ")[1],
-                                                         str(pees[3][0]).strip()))
+                            temp = (str(pees[2][0]).strip(),
+                                    str(pees[2][2]).strip(),
+                                    str(pees[2][4]).strip().split(" ")[0],
+                                    str(pees[2][4]).strip().split(" ")[1],
+                                    str(pees[3][0]).strip())
+                            db.insert(temp)
+                db.db.commit()
                 streets += 1
-                print("    " + str(streets) + " Streets (" + str(len(yellow_pages)) + " people) in: " + str((time()-t_streets)))
-            with open("cities" + ort.text + ".csv", "w") as file:
-                file.write("Name;Straße;PLZ;Ort;Telefon\n")
-                for elem in yellow_pages:
-                    file.write(elem.print_all() + "\n")
-            yellow_pages = list()
+                print("    " + str(streets) + " Streets in: " + str((time() - t_streets)))
             cities += 1
             print(str(cities) + " in: " + str((time()-t_cities)/60))
+    db.db.commit()
+    db.shut_down()
+
+
+def test():
+    db = Database("cities/cities.db")
+    db.cursor.execute("""SELECT * FROM yellowpages""")
+    print(len(db.cursor.fetchall()))
+    db.shut_down()
 
 
 if __name__ == "__main__":
-    main()
+    test()
