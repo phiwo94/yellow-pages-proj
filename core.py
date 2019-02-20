@@ -3,7 +3,6 @@ import sqlite3 as sql
 from bs4 import BeautifulSoup
 from time import time
 
-
 class Database:
 
     def __init__(self, db_name: str):
@@ -12,11 +11,11 @@ class Database:
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS yellowpages 
                                (personname text, streetname text, zipcode text, town text, phonenumber text)""")
 
-    def insert(self, data: tuple):
-        if len(data) == 5:
-            self.cursor.execute("""
-                INSERT INTO yellowpages VALUES(?, ?, ?, ?, ?)
-            """, data)
+    def insert(self, data):
+        self.cursor.executemany("""
+            INSERT INTO yellowpages VALUES(?, ?, ?, ?, ?)
+        """, data)
+        self.db.commit()
 
     def shut_down(self):
         self.cursor.close()
@@ -34,10 +33,26 @@ def get_soup(url: str):
     return BeautifulSoup(requests.get(url).text, features="html.parser")
 
 
+def get_personell_data(soup):
+    temp = list()
+    for anw in soup.find_all("a"):
+        if anw.get("href")[:2] != "/a" and anw.text.lower().replace(" ", "") not in not_in_list:
+            temp_soup = get_soup(website + anw.get("href"))
+            pees = list()
+            for temp_elem in temp_soup.find_all("p"):
+                pees.append(temp_elem.contents)
+            try:
+                temp.append((str(pees[2][0]).strip(),
+                             str(pees[2][2]).strip(),
+                             str(pees[2][4]).strip().split(" ")[0],
+                             str(pees[2][4]).strip().split(" ")[1],
+                             str(pees[3][0]).strip()))
+            except:
+                pass
+    return temp
+
+
 def main():
-    website = "https://telefonbuch-suche.com"
-    sub_site = "/a"
-    not_in_list = ["telefonbuch", "home", "impressum", "anmelden", "eintragen", "agb", "kontakt", "deutschland"]
     cities, streets = 0, 0
     t_cities = time()
     db = Database("cities/cities.db")
@@ -49,33 +64,26 @@ def main():
             for stra in ort_soup.find_all("a"):
                 if stra.get("href")[:2] == "/a" and stra.text.lower().replace(" ", "") not in not_in_list:
                     stra_soup = get_soup(website + stra.get("href"))
-                    for anw in stra_soup.find_all("a"):
-                        if anw.get("href")[:2] != "/a" and anw.text.lower().replace(" ", "") not in not_in_list:
-                            temp_soup = get_soup(website + anw.get("href"))
-                            pees = list()
-                            for temp_elem in temp_soup.find_all("p"):
-                                pees.append(temp_elem.contents)
-                            temp = (str(pees[2][0]).strip(),
-                                    str(pees[2][2]).strip(),
-                                    str(pees[2][4]).strip().split(" ")[0],
-                                    str(pees[2][4]).strip().split(" ")[1],
-                                    str(pees[3][0]).strip())
-                            db.insert(temp)
-                db.db.commit()
+                    data = get_personell_data(stra_soup)
+                    db.insert(data)
                 streets += 1
                 print("    " + str(streets) + " Streets in: " + str((time() - t_streets)))
             cities += 1
             print(str(cities) + " in: " + str((time()-t_cities)/60))
-    db.db.commit()
     db.shut_down()
 
 
 def test():
     db = Database("cities/cities.db")
     db.cursor.execute("""SELECT * FROM yellowpages""")
-    print(len(db.cursor.fetchall()))
+    for i, elem in enumerate(db.cursor.fetchall()):
+        print(str(i) + ": " + str(elem))
     db.shut_down()
 
 
+website = "https://telefonbuch-suche.com"
+sub_site = "/a"
+not_in_list = ["telefonbuch", "home", "impressum", "anmelden", "eintragen", "agb", "kontakt", "deutschland"]
+
 if __name__ == "__main__":
-    test()
+    main()
