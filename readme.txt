@@ -10,6 +10,7 @@ Dependencies
 * bs4 (beautifulsoup4)
 * time.time()
 * sqlite3
+* re
 
 Goal
 ----
@@ -24,6 +25,7 @@ ToDo´s
 - [X] write result into a db instead "city_name".csv files
 - [ ] make code more object-oriented
 - [X] implement stop-resume functionality
+- [ ] implement export functionality
 
 Change-Log
 ----------
