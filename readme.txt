@@ -23,11 +23,16 @@ ToDo´s
 - [ ] improve performance (use multi-threading)
 - [X] write result into a db instead "city_name".csv files
 - [ ] make code more object-oriented
-- [ ] implement stop-resume functionality
+- [X] implement stop-resume functionality
 
 Change-Log
 ----------
-20.02.19 (11:00): Database!
+20.02.19:
     * implemented sqlite db to store data
         * new class to interact with database
     * removed class originally designed to hold data
+    * read online about lxml being faster than bs4 ... wasted an afternoon
+    * implemented stop-resume logic
+        * query all distinct cities from db
+        * query all streetnames from db whre townname = last name of city in list
+        * in main() skip all elem in queries

@@ -2,6 +2,8 @@ import requests
 import sqlite3 as sql
 from bs4 import BeautifulSoup
 from time import time
+import re
+
 
 class Database:
 
@@ -16,6 +18,24 @@ class Database:
             INSERT INTO yellowpages VALUES(?, ?, ?, ?, ?)
         """, data)
         self.db.commit()
+
+    def select_from(self, fil=None):
+        if fil is not None:
+            self.cursor.execute("""
+                SELECT DISTINCT streetname FROM yellowpages WHERE town = ?
+            """, fil)
+        else:
+            self.cursor.execute("""
+                SELECT DISTINCT town FROM yellowpages
+            """)
+        return self.cursor.fetchall()
+
+    def db_length(self):
+        self.cursor.execute("""
+            SELECT personname FROM yellowpages
+        """)
+        l = self.cursor.fetchall()
+        return len(l)
 
     def shut_down(self):
         self.cursor.close()
@@ -52,17 +72,33 @@ def get_personell_data(soup):
     return temp
 
 
+def get_last_point():
+    db = Database("cities/cities.db")
+    t_towns = db.select_from()
+    t_streets = db.select_from(fil=t_towns[len(t_towns)-1])
+    towns = list()
+    streets = list()
+    nums_regex = re.compile(r"\d+")
+    for town in t_towns:
+        towns.append(str(list(town).pop()))
+    for street in t_streets:
+        streets.append(nums_regex.sub("", str(list(street).pop()))[:-1].strip())
+    db.shut_down()
+    return towns, list(set(streets))
+
+
 def main():
     cities, streets = 0, 0
     t_cities = time()
     db = Database("cities/cities.db")
+    f_towns, f_streets = get_last_point()
     soup = get_soup(website + sub_site)
     for ort in soup.find_all("a"):
         t_streets = time()
-        if ort.get("href")[:2] == "/a" and ort.text.lower().replace(" ", "") not in not_in_list:
+        if ort.get("href")[:2] == "/a" and ort.text.lower().replace(" ", "") not in not_in_list and ort.text not in f_towns:
             ort_soup = get_soup(website + ort.get("href"))
             for stra in ort_soup.find_all("a"):
-                if stra.get("href")[:2] == "/a" and stra.text.lower().replace(" ", "") not in not_in_list:
+                if stra.get("href")[:2] == "/a" and stra.text.lower().replace(" ", "") not in not_in_list and ort.text not in f_streets:
                     stra_soup = get_soup(website + stra.get("href"))
                     data = get_personell_data(stra_soup)
                     db.insert(data)
@@ -70,14 +106,6 @@ def main():
                 print("    " + str(streets) + " Streets in: " + str((time() - t_streets)))
             cities += 1
             print(str(cities) + " in: " + str((time()-t_cities)/60))
-    db.shut_down()
-
-
-def test():
-    db = Database("cities/cities.db")
-    db.cursor.execute("""SELECT * FROM yellowpages""")
-    for i, elem in enumerate(db.cursor.fetchall()):
-        print(str(i) + ": " + str(elem))
     db.shut_down()
 
 
