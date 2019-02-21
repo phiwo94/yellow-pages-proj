@@ -32,6 +32,7 @@ Change-Log
         * new class to interact with database
     * removed class originally designed to hold data
     * read online about lxml being faster than bs4 ... wasted an afternoon
+21.02.19
     * implemented stop-resume logic
         * query all distinct cities from db
         * query all streetnames from db whre townname = last name of city in list

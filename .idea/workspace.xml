@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dba700ae-0dd0-4a08-a343-4d668d64e4df" name="Default Changelist" comment="readme">
+    <list default="true" id="dba700ae-0dd0-4a08-a343-4d668d64e4df" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cities/cities.db" beforeDir="false" afterPath="$PROJECT_DIR$/cities/cities.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core.py" beforeDir="false" afterPath="$PROJECT_DIR$/core.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme.txt" beforeDir="false" afterPath="$PROJECT_DIR$/readme.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,10 +42,15 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="497">
-              <caret line="116" column="25" selection-start-line="116" selection-start-column="25" selection-end-line="116" selection-end-column="25" />
+            <state relative-caret-position="-1084">
+              <caret line="6" selection-start-line="6" selection-end-line="6" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
+                <element signature="n#yellowpages#0" />
+                <element signature="e#1060#1079#0" />
+                <element signature="e#686#705#0" />
+                <element signature="e#828#847#0" />
+                <element signature="e#1002#1017#0" />
               </folding>
             </state>
           </provider>
@@ -105,6 +107,21 @@
               <item name="yellow_pages_proj" type="b2602c69:ProjectViewProjectNode" />
               <item name="yellow_pages_proj" type="462c0819:PsiDirectoryNode" />
               <item name="cities" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="yellow_pages_proj" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+            </path>
+            <path>
+              <item name="yellow_pages_proj" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="Database Consoles" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
+            </path>
+            <path>
+              <item name="yellow_pages_proj" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="Database Consoles" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
+              <item name="14ddbad8-169f-4557-9359-bde45086918c" type="1e004dc1:ScratchProjectViewPane$MyRootNode$1$1" />
             </path>
           </expand>
           <select />
@@ -196,7 +213,7 @@
       <updated>1550503816368</updated>
       <workItem from="1550503817624" duration="20605000" />
       <workItem from="1550564100200" duration="1136000" />
-      <workItem from="1550566263368" duration="40892000" />
+      <workItem from="1550566263368" duration="41142000" />
     </task>
     <task id="LOCAL-00001" summary="master commit readme.txt">
       <created>1550567307953</created>
@@ -240,11 +257,18 @@
       <option name="project" value="LOCAL" />
       <updated>1550679592750</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="readme">
+      <created>1550710999657</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1550710999657</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="62633000" />
+    <option name="totallyTimeSpent" value="62883000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -259,12 +283,12 @@
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4992272" visible="true" weight="0.108208954" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4992272" visible="true" weight="0.108208954" />
       <window_info id="Structure" order="1" sideWeight="0.5007728" side_tool="true" visible="true" weight="0.108208954" />
       <window_info id="Favorites" order="2" sideWeight="0.5007728" side_tool="true" weight="0.108208954" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3281412" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3281412" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -336,9 +360,6 @@
     <entry file="file://$PROJECT_DIR$/cities/Aach.csv">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/14ddbad8-169f-4557-9359-bde45086918c/console.sql">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/lxmltest.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
@@ -376,12 +397,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/14ddbad8-169f-4557-9359-bde45086918c/console.sql">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/extensions/com.intellij.database/data/extractors/CSV-Groovy.csv.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-92" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="497">
-          <caret line="116" column="25" selection-start-line="116" selection-start-column="25" selection-end-line="116" selection-end-column="25" />
+        <state relative-caret-position="-1084">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
+            <element signature="n#yellowpages#0" />
+            <element signature="e#1060#1079#0" />
+            <element signature="e#686#705#0" />
+            <element signature="e#828#847#0" />
+            <element signature="e#1002#1017#0" />
           </folding>
         </state>
       </provider>
